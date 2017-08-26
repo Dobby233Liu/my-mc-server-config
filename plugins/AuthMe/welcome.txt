@@ -1,0 +1,3 @@
+§a{PLAYER} §6加入了 §b{SERVER} §a服务器！§a欢迎！
+§a当前服务器使用 §dAuthMe。
+§a(§aThis §amessage §ais §aedited §aby §aDobby233Liu)
