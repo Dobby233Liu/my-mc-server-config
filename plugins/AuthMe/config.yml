@@ -76,20 +76,20 @@ settings:
     sessions:
         # 启用会话服务,可以让玩家在下线后指定时间内登录而不需要输入密码
         # 采用多重验证
-        enabled: false
+        enabled: true
         # 单位:分钟 超时时间,在这超时时间之前登录不需要输入密码
-        timeout: 10
+        timeout: 50
     # 语言 需要中文请修改为 zhcn
     messagesLanguage: 'en'
-    # 记录类型: INFO, FINE, DEBUG. 不建议修改
-    logLevel: 'FINE'
+    # 记录类型: INFO, FINE (默认), DEBUG. 不建议修改
+    logLevel: 'DEBUG'
     # 是否使用多线程
     useAsyncTasks: true
     restrictions:
         # 在登录前允许玩家说话吗
-        allowChat: false
+        allowChat: true
         # 在玩家登录前是否隐藏服务器消息
-        hideChat: false
+        hideChat: true
         # 未登录玩家允许使用的命令
         allowCommands: 
         - '/login'
@@ -100,11 +100,11 @@ settings:
         - '/captcha'
         # 一个ip最大注册玩家数量
         # 0 代表无限制
-        maxRegPerIp: 1
+        maxRegPerIp: 0
         # 最小玩家名称长度
         minNicknameLength: 3
         # 最大玩家名称长度
-        maxNicknameLength: 16
+        maxNicknameLength: 30
         # 设置为true意味着在线玩家无法被使用同ID的玩家踢下线
         ForceSingleSession: true
         ForceSpawnLocOnJoin:
@@ -129,21 +129,21 @@ settings:
         # 是否立即踢出没注册的玩家
         kickNonRegistered: false
         # 是否踢出输入密码错误的玩家
-        kickOnWrongPassword: true
+        kickOnWrongPassword: false
         # 自动传送未登录的玩家到出生点
         teleportUnAuthedToSpawn: false
         # 允许未登录的玩家走动
-        allowMovement: false
+        allowMovement: true
         # 允许输入密码时间 单位:秒
         # 0为关闭
-        timeout: 30
+        timeout: 0
         # 允许登录服务器的玩家名称
         allowedNicknameCharacters: '[a-zA-Z0-9_]*'
         # 允许未注册的玩家走的距离
         # 0为无限制
-        allowedMovementRadius: 100
+        allowedMovementRadius: 0
         # 是否在未登录的时候隐藏玩家的背包 需要ProtocolLib
-        ProtectInventoryBeforeLogIn: true
+        ProtectInventoryBeforeLogIn: false
         # 是否在未登录的时候禁用Tab补全 需要ProtocolLib
         DenyTabCompleteBeforeLogin: false
         # 是否展示该玩家IP下所有账号
@@ -163,7 +163,7 @@ settings:
         otherAccountsCmdThreshold: 0
         # 当IP下具有的账户比设定值多时使用的命令
         # 变量: %playername%, %playerip%
-        otherAccountsCmd: 'say The player %playername% with ip %playerip% has multiple accounts!'
+        otherAccountsCmd: 'say %playername% connenting ip %playerip% have multiple accounts!'
     GameMode:
         # 强制玩家在登录时使用生存模式
         ForceSurvivalMode: false
@@ -207,7 +207,7 @@ settings:
         # 是否开启注册功能
         enabled: true
         # 发送注册/登录消息的秒数
-        messageInterval: 5
+        messageInterval: 1
         # 是否强制需要注册
         force: true
         # 登录方式n: PASSWORD or EMAIL
@@ -231,18 +231,19 @@ settings:
     # {MAXPLAYERS}: 最大在线玩家, {IP}: 玩家的IP, {LOGINS}: 已登录的玩家
     # {WORLD}: 每个世界的玩家, {SERVER}: 服务器名称
     # {VERSION}: 获取bukkit的版本, {COUNTRY}: 玩家IP所属的国家
-    useWelcomeMessage: true
+    # recover if you wanna
+    useWelcomeMessage: false
     # 广播到服务器或者单个玩家
     # true为服务器 false为单个玩家
     broadcastWelcomeMessage: false
     # 是否在登录后广播欢迎消息
-    delayJoinMessage: false
+    delayJoinMessage: true
     # 自定义加入欢迎消息,
     # 不填使用默认.
     # 变量:
     # {PLAYERNAME}: 玩家ID 不带颜色
     # {DISPLAYNAME}: 玩家的名称 带颜色
-    customJoinMessage: ''
+    customJoinMessage: '{PLAYERNAME} (now name {DISPLAYNAME}) logins this server! WELCOME!'
     # 是否去除未登录玩家的登出信息
     removeUnloggedLeaveMessage: false
     # 是否去除已经登录玩家的等登入消息
@@ -252,7 +253,7 @@ settings:
     # 是否给未登录的玩家使用失明效果
     applyBlindEffect: false
     # 是否强制玩家名 玩家用 CH1 注册了,将不能使用Ch1或者ch1登录游戏
-    preventOtherCase: true
+    preventOtherCase: false
 GroupOptions:
     # 启用权限检测来划分组
     enablePermissionCheck: false
@@ -334,7 +335,7 @@ Purge:
     # 是否删除长期未登录玩家的数据
     useAutoPurge: false
     # 应清除多久没上线玩家的数据
-    daysBeforeRemovePlayer: 60
+    daysBeforeRemovePlayer: 999999
     # 是否删除文件 player.dat 
     removePlayerDat: false
     # 是否删除文件 Essentials/userdata/player.yml 
@@ -360,7 +361,7 @@ Security:
         # 开启验证码当玩家输入多次错误的面膜
         useCaptcha: false
         # 最大尝试次数,超过将启用验证码
-        maxLoginTry: 5
+        maxLoginTry: 255
         # 验证码长度
         captchaLength: 5
         # 多少分钟后重置是否需要验证码验证状态
@@ -417,9 +418,9 @@ limbo:
     restoreWalkSpeed: 'MAX_RESTORE'
 BackupSystem:
     # 启用备份功能
-    ActivateBackup: false
+    ActivateBackup: true
     # 开服的时候是否备份
-    OnServerStart: false
+    OnServerStart: true
     # 关服的时候是否备份
     OnServerStop: true
     # MySQL在windows下的目录
